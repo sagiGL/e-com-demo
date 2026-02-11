@@ -1,27 +1,35 @@
-import { Ratelimit } from "@upstash/ratelimit"; // for deno: see above
-import { Redis } from "@upstash/redis"; // see below for cloudflare and fastly adapters
+/**
+ * Simple in-memory rate limiter (no external dependencies).
+ * Sufficient for demo/dev use. Resets on server restart.
+ */
 
-if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
-  throw new Error(
-    "Please link a Vercel KV instance or populate `KV_REST_API_URL` and `KV_REST_API_TOKEN`",
-  );
+type RateLimitEntry = { count: number; resetAt: number };
+
+function createRateLimiter(maxRequests: number, windowMs: number) {
+  const store = new Map<string, RateLimitEntry>();
+
+  return {
+    async limit(key: string) {
+      const now = Date.now();
+      const entry = store.get(key);
+
+      if (!entry || now > entry.resetAt) {
+        store.set(key, { count: 1, resetAt: now + windowMs });
+        return { success: true };
+      }
+
+      if (entry.count >= maxRequests) {
+        return { success: false };
+      }
+
+      entry.count++;
+      return { success: true };
+    },
+  };
 }
 
-const redis = new Redis({
-  url: process.env.KV_REST_API_URL,
-  token: process.env.KV_REST_API_TOKEN,
-});
+// 5 sign-in attempts per 15 minutes
+export const authRateLimit = createRateLimiter(5, 15 * 60 * 1000);
 
-export const authRateLimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(5, "15 m"),
-  analytics: true,
-  prefix: "ratelimit:auth",
-});
-
-export const signUpRateLimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(1, "15 m"),
-  analytics: true,
-  prefix: "ratelimit:signup",
-});
+// 1 sign-up per 15 minutes per IP
+export const signUpRateLimit = createRateLimiter(1, 15 * 60 * 1000);

@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 function getHostname() {
   if (process.env.NODE_ENV === "development") {
-    return "localhost:3000";
+    return `localhost:${process.env.PORT || 3456}`;
   }
   if (process.env.VERCEL_ENV === "production") {
     return process.env.VERCEL_PROJECT_PRODUCTION_URL;
