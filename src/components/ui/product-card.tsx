@@ -55,10 +55,10 @@ export function ProductLink(props: {
   return (
     <Link
       prefetch={true}
-      className="group flex h-[130px] w-full flex-row border px-4 py-2 hover:bg-gray-100 sm:w-[250px]"
+      className="group flex w-full flex-row overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md sm:w-[280px]"
       href={`/products/${category_slug}/${subcategory_slug}/${product.slug}`}
     >
-      <div className="py-2">
+      <div className="flex h-[130px] w-[90px] flex-shrink-0 items-center justify-center bg-gray-50 p-3">
         <NextImage
           loading={props.loading}
           decoding="sync"
@@ -67,15 +67,19 @@ export function ProductLink(props: {
           width={48}
           height={48}
           quality={65}
-          className="h-auto w-12 flex-shrink-0 object-cover"
+          className="h-auto w-14 flex-shrink-0 object-contain transition-transform group-hover:scale-110"
         />
       </div>
-      <div className="px-2" />
-      <div className="h-26 flex flex-grow flex-col items-start py-2">
-        <div className="text-sm font-medium text-gray-700 group-hover:underline">
-          {product.name}
+      <div className="flex flex-1 flex-col justify-between p-3">
+        <div>
+          <div className="text-sm font-semibold text-gray-800 group-hover:text-accent1">
+            {product.name}
+          </div>
+          <p className="mt-1 line-clamp-2 text-xs text-gray-500">{product.description}</p>
         </div>
-        <p className="overflow-hidden text-xs">{product.description}</p>
+        <p className="mt-2 text-sm font-bold text-accent1">
+          ${parseFloat(product.price).toFixed(2)}
+        </p>
       </div>
     </Link>
   );

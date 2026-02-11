@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
-import { ProductLink } from "@/components/ui/product-card";
 import type { Metadata } from "next";
 import {
   getProductsForSubcategory,
   getSubcategory,
   getSubcategoryProductCount,
 } from "@/lib/queries";
+import { DesignVariantProvider, VariantSelector } from "@/components/design-variant-selector";
+import { ProductVariantGrid } from "@/components/variant-grids";
 // import { db } from "@/db";
 
 // export async function generateStaticParams() {
@@ -68,26 +69,24 @@ export default async function Page(props: {
 
   const finalCount = countRes[0]?.count;
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 sm:p-6">
       {finalCount > 0 ? (
-        <h1 className="mb-2 border-b-2 text-sm font-bold">
-          {finalCount} {finalCount === 1 ? "Product" : "Products"}
-        </h1>
+        <div className="mb-4 flex items-center gap-2">
+          <span className="rounded-full bg-accent2 px-3 py-1 text-xs font-semibold text-accent1">
+            {finalCount} {finalCount === 1 ? "Product" : "Products"}
+          </span>
+        </div>
       ) : (
-        <p>No products for this subcategory</p>
+        <p className="text-gray-500">No products for this subcategory</p>
       )}
-      <div className="flex flex-row flex-wrap gap-2">
-        {products.map((product) => (
-          <ProductLink
-            key={product.name}
-            loading="eager"
-            category_slug={category}
-            subcategory_slug={subcategory}
-            product={product}
-            imageUrl={product.image_url}
-          />
-        ))}
-      </div>
+      <DesignVariantProvider>
+        <VariantSelector />
+        <ProductVariantGrid
+          products={products}
+          category_slug={category}
+          subcategory_slug={subcategory}
+        />
+      </DesignVariantProvider>
     </div>
   );
 }

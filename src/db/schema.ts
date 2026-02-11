@@ -154,3 +154,36 @@ export const users = pgTable("users", {
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
+
+export const orders = pgTable(
+  "orders",
+  {
+    id: serial("id").primaryKey(),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    status: text("status").notNull().default("confirmed"),
+    total: numeric("total").notNull(),
+    items: text("items").notNull(), // JSON string of cart items
+    shippingName: text("shipping_name"),
+    shippingAddress: text("shipping_address"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => ({
+    userIdIdx: index("orders_user_id_idx").on(table.userId),
+  }),
+);
+
+export type Order = typeof orders.$inferSelect;
+export type NewOrder = typeof orders.$inferInsert;
+
+export const ordersRelations = relations(orders, ({ one }) => ({
+  user: one(users, {
+    fields: [orders.userId],
+    references: [users.id],
+  }),
+}));
+
+export const usersRelations = relations(users, ({ many }) => ({
+  orders: many(orders),
+}));

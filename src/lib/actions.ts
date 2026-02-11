@@ -1,6 +1,10 @@
 "use server";
 
-import { getCart, updateCart } from "./cart";
+import { getCart, updateCart, detailedCart } from "./cart";
+import { getSession } from "./session";
+import { db } from "@/db";
+import { orders } from "@/db/schema";
+import { redirect } from "next/navigation";
 
 export async function addToCart(prevState: unknown, formData: FormData) {
   const prevCart = await getCart();
@@ -51,4 +55,50 @@ export async function removeFromCart(formData: FormData) {
   }
   const newCart = prevCart.filter((item) => item.productSlug !== productSlug);
   await updateCart(newCart);
+}
+
+export async function placeOrder(prevState: unknown, formData: FormData) {
+  const session = await getSession();
+  if (!session) {
+    return { error: "You must be logged in to place an order." };
+  }
+
+  const cart = await detailedCart();
+  if (cart.length === 0) {
+    return { error: "Your cart is empty." };
+  }
+
+  const total = cart.reduce(
+    (acc, item) => acc + item.quantity * Number(item.price),
+    0,
+  );
+
+  const shippingName = formData.get("shippingName") as string;
+  const shippingAddress = formData.get("shippingAddress") as string;
+
+  if (!shippingName?.trim() || !shippingAddress?.trim()) {
+    return { error: "Please fill in shipping details." };
+  }
+
+  const itemsSummary = cart.map((item) => ({
+    slug: item.slug,
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
+    image_url: item.image_url,
+  }));
+
+  await db.insert(orders).values({
+    userId: session.user.id,
+    total: total.toFixed(2),
+    items: JSON.stringify(itemsSummary),
+    shippingName: shippingName.trim(),
+    shippingAddress: shippingAddress.trim(),
+    status: "confirmed",
+  });
+
+  // Clear the cart
+  await updateCart([]);
+
+  redirect("/order-history");
 }

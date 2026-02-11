@@ -8,14 +8,16 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   return (
-    <main className="min-h-screen p-4">
-      <h1 className="w-full border-b-2 border-accent1 text-left text-2xl text-accent1">
-        Order History
-      </h1>
-      <div className="mx-auto flex max-w-md flex-col gap-4 text-black">
-        <Suspense>
-          <OrderHistoryDynamic />
-        </Suspense>
+    <main className="min-h-screen bg-gray-50/50 p-4 sm:p-6">
+      <div className="mx-auto max-w-3xl rounded-2xl bg-white p-4 shadow-sm sm:p-8">
+        <h1 className="text-2xl font-bold text-gray-900">
+          Order History
+        </h1>
+        <div className="mt-6">
+          <Suspense>
+            <OrderHistoryDynamic />
+          </Suspense>
+        </div>
       </div>
     </main>
   );

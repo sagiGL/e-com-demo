@@ -8,7 +8,7 @@ export function WelcomeToast() {
     // ignore if screen height is too small
     if (window.innerHeight < 850) return;
     if (!document.cookie.includes("welcome-toast=3")) {
-      toast("🚀 Welcome to NextFaster!", {
+      toast("✏️ Welcome to e-pen!", {
         id: "welcome-toast",
         duration: Infinity,
         onDismiss: () => {
@@ -16,17 +16,16 @@ export function WelcomeToast() {
         },
         description: (
           <>
-            This is a highly performant e-commerce template using Next.js. All
-            of the 1M products on this site are AI generated.
+            Your premium destination for pens, stationery, and writing
+            instruments. Browse our curated collection.
             <hr className="my-2" />
-            This demo is to highlight the speed a full-stack Next.js site can
-            achieve.{" "}
+            Fast, beautiful, and built with{" "}
             <a
-              href="https://github.com/ethanniser/NextFaster"
+              href="https://nextjs.org"
               className="font-semibold text-accent1 hover:underline"
               target="_blank"
             >
-              Get the Source
+              Next.js
             </a>
             .
           </>

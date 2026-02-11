@@ -8,18 +8,18 @@ export default async function Layout({
 }) {
   const allCollections = await getCollections();
   return (
-    <div className="flex flex-grow font-mono">
-      <aside className="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block md:h-full">
-        <h2 className="border-b border-accent1 text-sm font-semibold text-accent1">
-          Choose a Category
+    <div className="flex flex-grow font-sans">
+      <aside className="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r border-gray-200 bg-gray-50/80 p-5 md:block md:h-full">
+        <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400">
+          Categories
         </h2>
-        <ul className="flex flex-col items-start justify-center">
+        <ul className="flex flex-col items-start justify-center gap-0.5">
           {allCollections.map((collection) => (
             <li key={collection.slug} className="w-full">
               <Link
                 prefetch={true}
                 href={`/${collection.slug}`}
-                className="block w-full py-1 text-xs text-gray-800 hover:bg-accent2 hover:underline"
+                className="block w-full rounded-lg px-3 py-2 text-sm text-gray-700 transition-all hover:bg-white hover:text-accent1 hover:shadow-sm"
               >
                 {collection.name}
               </Link>
