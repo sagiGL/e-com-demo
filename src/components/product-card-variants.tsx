@@ -91,7 +91,7 @@ export function ProductMinimal(props: ProductCardProps) {
           )}
         />
         {isNew && (
-          <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-[10px] font-semibold text-[#111] shadow-sm">
+          <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-[10px] font-semibold text-[#152a47] shadow-sm">
             New In
           </span>
         )}
@@ -153,7 +153,7 @@ export function ProductEditorial(props: ProductCardProps) {
 
   return (
     <div
-      className="group relative flex flex-col overflow-hidden bg-[#111]"
+      className="group relative flex flex-col overflow-hidden bg-[#152a47]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -188,8 +188,8 @@ export function ProductEditorial(props: ProductCardProps) {
           className={cn(
             "absolute right-4 top-4 flex h-10 w-10 items-center justify-center border backdrop-blur-sm transition-all duration-300",
             liked
-              ? "border-primary/60 bg-[#111]/30 text-primary"
-              : "border-[#f5f0e8]/20 bg-[#111]/20 text-[#f5f0e8]/60 hover:text-[#f5f0e8]",
+              ? "border-primary/60 bg-[#152a47]/30 text-primary"
+              : "border-[#f5f0e8]/20 bg-[#152a47]/20 text-[#f5f0e8]/60 hover:text-[#f5f0e8]",
           )}
           aria-label={liked ? "Remove from wishlist" : "Add to wishlist"}
         >
@@ -203,7 +203,7 @@ export function ProductEditorial(props: ProductCardProps) {
             isHovered ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
           )}
         >
-          <span className="flex items-center gap-1.5 border border-[#f5f0e8]/30 bg-[#111]/30 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.15em] text-[#f5f0e8] backdrop-blur-sm transition-all duration-300 hover:bg-[#f5f0e8] hover:text-[#111]">
+          <span className="flex items-center gap-1.5 border border-[#f5f0e8]/30 bg-[#152a47]/30 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.15em] text-[#f5f0e8] backdrop-blur-sm transition-all duration-300 hover:bg-[#f5f0e8] hover:text-[#152a47]">
             <Eye className="h-3.5 w-3.5" />
             View Details
           </span>
@@ -214,7 +214,7 @@ export function ProductEditorial(props: ProductCardProps) {
           <p className="text-[9px] font-light uppercase tracking-[0.35em] text-[#f5f0e8]/35">
             {props.subcategory_slug.split("-").join(" ")}
           </p>
-          <h3 className="mt-1 font-serif text-[15px] font-light leading-snug tracking-tight text-[#f5f0e8]">
+          <h3 className="mt-1  text-[15px] font-light leading-snug tracking-tight text-[#f5f0e8]">
             {product.name}
           </h3>
         </div>
@@ -273,7 +273,7 @@ export function ProductOverlay(props: ProductCardProps) {
       <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
         <div className="flex gap-2">
           {isNew && (
-            <span className="rounded-full bg-white px-3 py-1 text-[10px] font-bold text-[#111]">New</span>
+            <span className="rounded-full bg-white px-3 py-1 text-[10px] font-bold text-[#152a47]">New</span>
           )}
           {discount > 0 && (
             <span className="rounded-full bg-[#ef4444] px-3 py-1 text-[10px] font-bold text-white">
@@ -309,7 +309,7 @@ export function ProductOverlay(props: ProductCardProps) {
               <span className="text-xs text-white/40 line-through">{formatPrice(originalPrice)}</span>
             )}
           </div>
-          <span className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-[11px] font-bold text-[#111] transition-colors hover:bg-[#f5f5f5] active:scale-95">
+          <span className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-[11px] font-bold text-[#152a47] transition-colors hover:bg-[#f5f5f5] active:scale-95">
             <ShoppingBag className="h-3.5 w-3.5" />
             Shop
           </span>
@@ -365,18 +365,18 @@ export function ProductCatalog(props: ProductCardProps) {
               <span className="text-xs font-bold text-[#333]">{rating}</span>
             </div>
           </div>
-          <h3 className="mb-2 text-base font-semibold leading-snug text-[#111]">{product.name}</h3>
+          <h3 className="mb-2 text-base font-semibold leading-snug text-[#152a47]">{product.name}</h3>
           <p className="line-clamp-2 text-xs leading-relaxed text-[#888]">{product.description}</p>
         </div>
         {/* Bottom */}
         <div className="mt-4 flex items-center justify-between border-t border-[#f0f0f0] pt-4">
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold text-[#111]">{formatPrice(product.price)}</span>
+            <span className="text-xl font-bold text-[#152a47]">{formatPrice(product.price)}</span>
             {originalPrice && (
               <span className="text-sm text-[#bbb] line-through">{formatPrice(originalPrice)}</span>
             )}
           </div>
-          <span className="flex items-center gap-2 rounded-lg bg-[#111] px-5 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#333] active:scale-95">
+          <span className="flex items-center gap-2 rounded-lg bg-[#152a47] px-5 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#333] active:scale-95">
             <ShoppingBag className="h-3.5 w-3.5" />
             Add to Bag
           </span>
@@ -434,7 +434,7 @@ export function ProductMagazine(props: ProductCardProps) {
         <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
           {props.subcategory_slug.split("-").join(" ")}
         </p>
-        <h3 className="mb-3 text-balance font-serif text-2xl font-bold leading-tight text-[#2d1f10]">
+        <h3 className="mb-3 text-balance  text-2xl font-bold leading-tight text-[#2d1f10]">
           {product.name}
         </h3>
         {/* Colors */}

@@ -50,7 +50,7 @@ export function CategoryEditorial({ name, imageUrl, href, loading }: CategoryCar
     <Link
       prefetch={true}
       href={href}
-      className="group relative flex flex-col overflow-hidden bg-[#111] transition-all"
+      className="group relative flex flex-col overflow-hidden bg-[#152a47] transition-all rounded-md"
     >
       <div className="relative aspect-square overflow-hidden">
         <Image
@@ -64,7 +64,7 @@ export function CategoryEditorial({ name, imageUrl, href, loading }: CategoryCar
       </div>
       <div className="p-4">
         <p className="text-[9px] uppercase tracking-[0.3em] text-[#f5f0e8]/40">Collection</p>
-        <h3 className="mt-1 font-serif text-sm font-light tracking-tight text-[#f5f0e8]">{name}</h3>
+        <h3 className="mt-1  text-sm font-light tracking-tight text-[#f5f0e8]">{name}</h3>
       </div>
     </Link>
   )
@@ -121,7 +121,7 @@ export function CategoryCatalog({ name, imageUrl, href, loading, productCount }:
           <p className="text-[10px] text-[#999]">{productCount} products</p>
         )}
       </div>
-      <span className="text-[10px] font-semibold text-[#999] transition-colors group-hover:text-[#111]">
+      <span className="text-[10px] font-semibold text-[#999] transition-colors group-hover:text-[#152a47]">
         →
       </span>
     </Link>
@@ -150,7 +150,7 @@ export function CategoryMagazine({ name, imageUrl, href, loading }: CategoryCard
       </div>
       <div className="relative z-10 -mt-8 px-5 pb-5">
         <p className="mb-0.5 text-[9px] font-bold uppercase tracking-[0.2em] text-primary">Collection</p>
-        <h3 className="font-serif text-lg font-bold text-[#2d1f10]">{name}</h3>
+        <h3 className=" text-lg font-bold text-[#2d1f10]">{name}</h3>
       </div>
     </Link>
   )
